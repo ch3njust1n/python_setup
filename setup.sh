@@ -22,12 +22,8 @@ eval "$(pyenv virtualenv-init -)"
 pyenv update
 pyenv install 3:latest
 pyenv local 3:latest
-
 pyenv virtualenv base
 pyenv activate base
-
-python -m venv .venv
-source .venv/bin/activate
 
 curl https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore --output .gitignore
 
@@ -42,7 +38,7 @@ pipenv install --dev flake8
 pipreqs
 pipenv install -r ./requirements.txt
 
-precommitConfig = "repos:
+echo "repos:
 -   repo: https://github.com/ambv/black
     rev: 22.8.0
     hooks:
@@ -77,9 +73,7 @@ hooks:
 
 repo: https://github.com/asottile/pyupgrade
 rev: v2.38.0
-- id: pyupgrade"
-
-echo precommitConfig > pre-commit-config.yaml
+- id: pyupgrade" | tee pre-commit-config.yaml
 
 pre-commit install
 
